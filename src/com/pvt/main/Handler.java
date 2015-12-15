@@ -22,8 +22,9 @@ public class Handler {
 	// render: draw the object
 	public void render(Graphics g){
 		// iterate game objects
-		for (GameObject tempObject : objects){
+		for (int i = 0; i< objects.size(); i++){
 			// calling the render() of the real object
+			GameObject tempObject = objects.get(i);
 			tempObject.render(g);
 		}
 	}

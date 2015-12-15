@@ -36,8 +36,8 @@ public class Player extends GameObject {
 		x += velX;
 		y += velY;
 		
-		x = Game.isWall(x, 0, Game.WIDTH - 38);
-		y = Game.isWall(y, 0, Game.HEIGHT - 61);
+		x = Game.isLimit(x, 0, Game.WIDTH - 38);
+		y = Game.isLimit(y, 0, Game.HEIGHT - 61);
 		
 		collision();
 	}

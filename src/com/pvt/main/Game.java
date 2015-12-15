@@ -18,6 +18,7 @@ public class Game  extends Canvas implements Runnable{
 	private Handler handler;
 	private Random rand;
 	private HUD hud;
+	private Spawn spawn;
 
 	public Game() {
 		// initialise objects
@@ -26,30 +27,9 @@ public class Game  extends Canvas implements Runnable{
 		rand = new Random();
 		new Window(WIDTH, HEIGHT, "FinzyFrenzy", this);
 		hud = new HUD();
+		spawn = new Spawn(handler, hud);
 		handler.addObject(new Player(WIDTH/2 - 32, HEIGHT/2 - 32, ID.Player, handler));
 //		handler.addObject(new Player(WIDTH/2 - 64, HEIGHT/2 - 64, ID.Player2));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
 		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
 	}
 	
@@ -117,7 +97,7 @@ public class Game  extends Canvas implements Runnable{
 		bs.show(); 
 	}
 	
-	public static int isWall(int val, int min, int max){
+	public static int isLimit(int val, int min, int max){
 		if (val >= max) return val = max;
 		else if (val<= min) return val = min;
 		return val;
@@ -126,6 +106,7 @@ public class Game  extends Canvas implements Runnable{
 	private void tick() {
 		handler.tick();
 		hud.tick();
+		spawn.tick();
 	}
 
 }
