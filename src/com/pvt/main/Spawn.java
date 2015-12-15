@@ -17,10 +17,14 @@ public class Spawn {
 	public void tick(){
 		scoreKeep ++;
 
-		if(scoreKeep >= 500){
+		if(scoreKeep >= 200){
 			scoreKeep = 0;
 			hud.setLevel(hud.getLevel()+1);
 			handler.addObject(new BasicEnemy(rand.nextInt(Game.WIDTH) - 50, rand.nextInt(Game.HEIGHT) - 50, ID.Enemy, handler));
+			// add fast enemy every four level-up
+//			if (hud.getLevel()%4==0){
+//				handler.addObject(new FastEnemy(rand.nextInt(Game.WIDTH)-50, rand.nextInt(Game.HEIGHT)-50, ID.Enemy, handler));
+//			}
 		}
 	}
 }

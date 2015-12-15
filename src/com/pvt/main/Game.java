@@ -27,10 +27,10 @@ public class Game  extends Canvas implements Runnable{
 		rand = new Random();
 		new Window(WIDTH, HEIGHT, "FinzyFrenzy", this);
 		hud = new HUD();
-		spawn = new Spawn(handler, hud);
 		handler.addObject(new Player(WIDTH/2 - 32, HEIGHT/2 - 32, ID.Player, handler));
 //		handler.addObject(new Player(WIDTH/2 - 64, HEIGHT/2 - 64, ID.Player2));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH), rand.nextInt(HEIGHT), ID.Enemy, handler));
+		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH) - 50, rand.nextInt(HEIGHT) - 50, ID.Enemy, handler));
+		spawn = new Spawn(handler, hud);
 	}
 	
 	// the Game() creates a Window object, which starts up the start(), which calls run()
@@ -83,7 +83,7 @@ public class Game  extends Canvas implements Runnable{
 		stop();
 	}
 	private void render() {
-		// TODO Auto-generated method stub
+		// Draw window properties and render objects
 		BufferStrategy bs = this.getBufferStrategy();
 		if (bs == null) { this.createBufferStrategy(3); return;}
 		Graphics g = bs.getDrawGraphics();

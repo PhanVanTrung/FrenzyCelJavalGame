@@ -10,7 +10,7 @@ public class BasicEnemy extends GameObject{
 
 	public BasicEnemy(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
-		// TODO Auto-generated constructor stub
+		// velocity to X, velocity to Y
 		velX = 5;
 		velY = 5;
 		this.handler = handler;

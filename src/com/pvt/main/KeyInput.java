@@ -7,7 +7,9 @@ import java.awt.event.KeyEvent;
 public class KeyInput extends KeyAdapter{
 
 	private Handler handler;
-
+	// 0 - up, 1 - down, 2 - right, 3 - left
+	private boolean[] keyPressed = {false, false, false, false};
+	
 	public KeyInput(Handler handler) {
 		this.handler = handler;
 	}
@@ -20,17 +22,17 @@ public class KeyInput extends KeyAdapter{
 			GameObject tempObj = handler.objects.get(i);
 			if(tempObj.getId()== ID.Player){
 				// all key events are handled here for player 1
-				if (key == KeyEvent.VK_UP) tempObj.setVelY(-4);
-				if (key == KeyEvent.VK_DOWN) tempObj.setVelY(4);
-				if (key == KeyEvent.VK_LEFT) tempObj.setVelX(-4);
-				if (key == KeyEvent.VK_RIGHT) tempObj.setVelX(4);
+				if (key == KeyEvent.VK_UP){ tempObj.setVelY(-4); keyPressed[0] = true;}
+				if (key == KeyEvent.VK_DOWN){ tempObj.setVelY(4); keyPressed[1] = true;}
+				if (key == KeyEvent.VK_RIGHT){ tempObj.setVelX(4);keyPressed[2] = true;}
+				if (key == KeyEvent.VK_LEFT){ tempObj.setVelX(-4);keyPressed[3] = true;}
 			}
 //			else if (tempObj.getId()== ID.Player2){
 //				// all key events are handled here for player 2
 //			if (key == KeyEvent.VK_W) tempObj.setVelY(-4);
 //			if (key == KeyEvent.VK_S) tempObj.setVelY(4);
-//			if (key == KeyEvent.VK_A) tempObj.setVelX(-4);
 //			if (key == KeyEvent.VK_D) tempObj.setVelX(4);
+//			if (key == KeyEvent.VK_A) tempObj.setVelX(-4);
 //			}
 		}
 		if (key == KeyEvent.VK_ESCAPE) System.exit(0);
@@ -44,11 +46,14 @@ public class KeyInput extends KeyAdapter{
 			GameObject tempObj = handler.objects.get(i);
 			if(tempObj.getId()== ID.Player){
 				// all key events are handled here for player 1
-				if (key == KeyEvent.VK_UP) tempObj.setVelY(0);
-				if (key == KeyEvent.VK_DOWN) tempObj.setVelY(0);
-				if (key == KeyEvent.VK_LEFT) tempObj.setVelX(0);
-				if (key == KeyEvent.VK_RIGHT) tempObj.setVelX(0);
-
+				if (key == KeyEvent.VK_UP) keyPressed[0] = false;//tempObj.setVelY(0);
+				if (key == KeyEvent.VK_DOWN) keyPressed[1] = false;//tempObj.setVelY(0);
+				if (key == KeyEvent.VK_RIGHT) keyPressed[2] = false;//tempObj.setVelX(0);
+				if (key == KeyEvent.VK_LEFT) keyPressed[3] = false;//tempObj.setVelX(0);
+				// vertical movement
+				if (!keyPressed[0] && !keyPressed[1]) tempObj.setVelY(0);
+				// horizontal movement
+				if (!keyPressed[2] && !keyPressed[3]) tempObj.setVelX(0);
 			}
 //			else if (tempObj.getId()== ID.Player){
 //				// all key events are handled here for player 2
