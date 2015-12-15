@@ -3,26 +3,24 @@ package com.pvt.main;
 import java.awt.Color;
 import java.awt.Graphics;
 
+
 public class HUD {
 	// heads up display
 	
 	public static int HEALTH = 100;
 	private int score = 0;
 	private int level = 1;
+	private int green =0;
 	
 	public void tick(){
 		HEALTH = Game.isLimit(HEALTH, 0, 100);
 		score ++;
+		green = (int) (HEALTH*2.55);
 	}
 	public void render(Graphics g){
 		g.setColor(Color.gray);
 		g.fillRect(15, 15, 200, 32);
-		if(HEALTH>=60)
-			g.setColor(Color.green);
-		else if (HEALTH>=40)
-			g.setColor(new Color(60, 2*HEALTH, 0));
-		else
-			g.setColor(new Color(150, 0, 0));
+		g.setColor(new Color(255-green, green, 0));
 		g.fillRect(15, 15, 2*HEALTH, 32);
 		g.setColor(Color.white);
 		g.drawRect(15, 15, 2*HEALTH, 32);

@@ -30,14 +30,10 @@ public class AdvancedEnemy extends GameObject{
 			x += velX;
 		if (x>playerPosX)
 			x -= velX;
-		if (x==playerPosX)
-			x = x;
 		if (y<playerPosY)
 			y += velY;
 		if (y>playerPosY)
 			y -= velY;
-		if (y==playerPosY)
-			y = y;
 //		x = velX;
 //		y = velY;
 		// Change the direction if enemy object hits the wall
