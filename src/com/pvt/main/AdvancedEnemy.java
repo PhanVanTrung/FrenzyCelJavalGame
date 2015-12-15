@@ -4,33 +4,52 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
 
-public class FastEnemy extends GameObject{
+public class AdvancedEnemy extends GameObject{
 	
 	private Handler handler;
+	private GameObject player;
 
-	public FastEnemy(int x, int y, ID id, Handler handler) {
+	public AdvancedEnemy(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
 		// velocity to X, velocity to Y
-		velX = 3;
-		velY = 9;
+		velX = 1;
+		velY = 1;
 		this.handler = handler;
+		// browse the handler to get the player and pass it to the player object variable.
+		for (int i =0; i < handler.objects.size(); i++){
+			if (handler.objects.get(i).getId() == ID.Player) player = handler.objects.get(i);
+		}
 	}
 
 	@Override
 	public void tick() {
 		// TODO Auto-generated method stub
-		x += velX;
-		y += velY;
+		int playerPosX = player.getX();
+		int playerPosY = player.getY();
+		if (x<playerPosX)
+			x += velX;
+		if (x>playerPosX)
+			x -= velX;
+		if (x==playerPosX)
+			x = x;
+		if (y<playerPosY)
+			y += velY;
+		if (y>playerPosY)
+			y -= velY;
+		if (y==playerPosY)
+			y = y;
+//		x = velX;
+//		y = velY;
 		// Change the direction if enemy object hits the wall
 		if (y<=0 || y >= Game.HEIGHT - 28) velY *= -1;
 		if (x<=0 || x >= Game.WIDTH - 14) velX *= -1;
 		// add the tails to handler with the position of the enemy (copy enemy position to trail)
-		handler.addObject(new Trail(x, y, ID.Trail, Color.cyan, 14, 14, 0.05f, handler));
+		handler.addObject(new Trail(x, y, ID.Trail, Color.orange, 14, 14, 0.05f, handler));
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.cyan);
+		g.setColor(Color.orange);
 		g.fillRect(x, y, 14, 14);
 
 		// Boundary

@@ -26,7 +26,7 @@ public class Player extends GameObject {
 
 	public Player(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
-//		velX = 1;
+		// initially dont set the velocity for player. But it will be when key movement is hit
 		this.handler = handler;
 		loadPlayer();
 	}

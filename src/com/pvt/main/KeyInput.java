@@ -46,10 +46,10 @@ public class KeyInput extends KeyAdapter{
 			GameObject tempObj = handler.objects.get(i);
 			if(tempObj.getId()== ID.Player){
 				// all key events are handled here for player 1
-				if (key == KeyEvent.VK_UP) keyPressed[0] = false;//tempObj.setVelY(0);
-				if (key == KeyEvent.VK_DOWN) keyPressed[1] = false;//tempObj.setVelY(0);
-				if (key == KeyEvent.VK_RIGHT) keyPressed[2] = false;//tempObj.setVelX(0);
-				if (key == KeyEvent.VK_LEFT) keyPressed[3] = false;//tempObj.setVelX(0);
+				if (key == KeyEvent.VK_UP) keyPressed[0] = false;
+				if (key == KeyEvent.VK_DOWN) keyPressed[1] = false;
+				if (key == KeyEvent.VK_RIGHT) keyPressed[2] = false;
+				if (key == KeyEvent.VK_LEFT) keyPressed[3] = false;
 				// vertical movement
 				if (!keyPressed[0] && !keyPressed[1]) tempObj.setVelY(0);
 				// horizontal movement
