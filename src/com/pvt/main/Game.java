@@ -27,9 +27,9 @@ public class Game  extends Canvas implements Runnable{
 		rand = new Random();
 		new Window(WIDTH, HEIGHT, "FinzyFrenzy", this);
 		hud = new HUD();
-		handler.addObject(new Player(WIDTH/2 - 32, HEIGHT/2 - 32, ID.Player, handler));
+		handler.addObject(new Player(WIDTH/2 - 16, HEIGHT/2 - 16, ID.Player, handler));
 //		handler.addObject(new Player(WIDTH/2 - 64, HEIGHT/2 - 64, ID.Player2));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH) - 50, rand.nextInt(HEIGHT) - 50, ID.Enemy, handler));
+		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH - 50), rand.nextInt(HEIGHT - 50), ID.Enemy, handler));
 		spawn = new Spawn(handler, hud);
 	}
 	

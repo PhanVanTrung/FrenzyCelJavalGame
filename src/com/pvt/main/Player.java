@@ -43,11 +43,14 @@ public class Player extends GameObject {
 	}
 
 	private void collision() {
-		for (GameObject tempObj : handler.objects){
+		for (int i=0; i<handler.objects.size(); i++){
+			GameObject tempObj = handler.objects.get(i);
 			// Collision code
 			if (tempObj.getId()==ID.Enemy && getBounds().intersects(tempObj.getBounds())){
 				HUD.HEALTH -= 1;
 			}
+			if (tempObj.getId() == ID.FatalEnemy && getBounds().intersects(tempObj.getBounds()))
+				HUD.HEALTH = 0;
 		}
 		
 	}

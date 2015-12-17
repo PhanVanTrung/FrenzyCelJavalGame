@@ -25,8 +25,8 @@ public class HUD {
 		g.setColor(Color.white);
 		g.drawRect(15, 15, 2*HEALTH, 32);
 		g.drawString(HEALTH +"%", 15, 15);
-		g.drawString("Score " + score, 15, 65);
-		g.drawString("Level " + level, 15, 85);
+		g.drawString("Score        " + score, 15, 65);
+		g.drawString("Level     " + level, 15, 85);
 	}
 	
 	public static int getHEALTH() {

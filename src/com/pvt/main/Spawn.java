@@ -17,28 +17,28 @@ public class Spawn {
 	public void tick(){
 		scoreKeep ++;
 
-		if(scoreKeep >= 100){
+		if(hud.getLevel() < 11 && scoreKeep >= 50){
 			scoreKeep = 0;
 			hud.setLevel(hud.getLevel()+1);
-			if (hud.getLevel()%5!=0 && hud.getLevel()%7!=0){
+			if (hud.getLevel()!=3 && hud.getLevel()!=4 || hud.getLevel()!=7){
 				handler.addObject(new BasicEnemy(rand.nextInt(Game.WIDTH - 50), rand.nextInt(Game.HEIGHT - 50), ID.Enemy, handler));
 			}
-			// add fast enemy every four level-up
-			if (hud.getLevel()%5==0){
+			if (hud.getLevel()==3){
 				handler.addObject(new FastEnemy(rand.nextInt(Game.WIDTH-50), rand.nextInt(Game.HEIGHT-50), ID.Enemy, handler));
 			}
-			// add advanced enemy at every seven-level
-			if (hud.getLevel()%7==0){
+			if (hud.getLevel()==4 || hud.getLevel()==5){
 				handler.addObject(new AdvancedEnemy(rand.nextInt(Game.WIDTH-50), rand.nextInt(Game.HEIGHT-50), ID.FatalEnemy, handler));
 			}
-			// remove the fatal enemy after the level
-//			if (hud.getLevel()%5!=0){
-//				for (int i = 0; i<handler.objects.size(); i++){
-//					GameObject tempObj = handler.objects.get(i);
-//					if (tempObj.getId()==ID.FatalEnemy)
-//						handler.removeObject(tempObj);
-//				}
-//			}
+			if (hud.getLevel()==7){
+				handler.addObject(new FastEnemy(rand.nextInt(Game.WIDTH-50), rand.nextInt(Game.HEIGHT-50), ID.Enemy, handler));
+			}
+			if (hud.getLevel() == 11){
+				handler.clearEnemies();
+				FatalWall fw = new FatalWall(0, 22, ID.FatalEnemy, handler);
+				BossEnemy boss = new BossEnemy(Game.WIDTH/2 -32, -120, ID.FatalEnemy, handler);
+				handler.addObject(fw);
+				handler.addObject(boss);
+			}
 		}
 	}
 }

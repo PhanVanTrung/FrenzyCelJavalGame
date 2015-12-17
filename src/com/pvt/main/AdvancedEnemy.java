@@ -17,7 +17,7 @@ public class AdvancedEnemy extends GameObject{
 		this.handler = handler;
 		// browse the handler to get the player and pass it to the player object variable.
 		for (int i =0; i < handler.objects.size(); i++){
-			if (handler.objects.get(i).getId() == ID.Player) player = handler.objects.get(i);
+			if (handler.objects.get(i).getId() == ID.Player) player = (Player) handler.objects.get(i);
 		}
 	}
 
@@ -40,12 +40,12 @@ public class AdvancedEnemy extends GameObject{
 //		if (y<=0 || y >= Game.HEIGHT - 28) velY *= -1;
 //		if (x<=0 || x >= Game.WIDTH - 14) velX *= -1;
 		// add the tails to handler with the position of the enemy (copy enemy position to trail)
-		handler.addObject(new Trail(x+9, y+9, ID.Trail, Color.orange, 14, 14, 0.05f, handler));
+		handler.addObject(new Trail(x+9, y+9, ID.Trail, Color.yellow, 14, 14, 0.05f, handler));
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.orange);
+		g.setColor(Color.yellow);
 		g.fillRect(x+9, y+9, 14, 14);
 
 		// draw boundary
