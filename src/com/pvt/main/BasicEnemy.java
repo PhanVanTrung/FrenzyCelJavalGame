@@ -22,8 +22,8 @@ public class BasicEnemy extends GameObject{
 		x += velX;
 		y += velY;
 		// Change the direction if enemy object hits the wall
-		if (y<0 || y > Game.HEIGHT - 28) velY *= -1;
-		if (x<0 || x > Game.WIDTH - 14) velX *= -1;
+		if (y<=0 || y >= Game.HEIGHT - 28) velY *= -1;
+		if (x<=0 || x >= Game.WIDTH - 14) velX *= -1;
 		// add the tails to handler with the position of the enemy (copy enemy position to trail)
 		handler.addObject(new Trail(x, y, ID.Trail, Color.red, 14, 14, 0.05f, handler));
 	}
