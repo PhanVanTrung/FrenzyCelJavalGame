@@ -10,8 +10,6 @@ public class Game  extends Canvas implements Runnable{
 
 	private static final long serialVersionUID = 7356663384161444970L;
 
-//	public static final int WIDTH = 640, HEIGHT = WIDTH / 12 * 9;
-//	public static final int WIDTH = 1366, HEIGHT = 768;
 	public static final int WIDTH = 1366/ 2, HEIGHT = WIDTH/ 12 * 9;
 	private Thread thread;
 	private boolean running = false;
@@ -19,18 +17,36 @@ public class Game  extends Canvas implements Runnable{
 	private Random rand;
 	private HUD hud;
 	private Spawn spawn;
+	private Menu menu;
+	public enum STATE{
+		Menu(),
+		Game()
+	};
 
+	public STATE gameState = STATE.Menu;
+	
 	public Game() {
 		// initialise objects
+		
 		this.handler = new Handler();
+		menu = new Menu(this, handler);
 		this.addKeyListener(new KeyInput(handler));
-		rand = new Random();
+		this.addMouseListener(menu);
+		
 		new Window(WIDTH, HEIGHT, "FinzyFrenzy", this);
 		hud = new HUD();
-		handler.addObject(new Player(WIDTH/2 - 16, HEIGHT/2 - 16, ID.Player, handler));
-//		handler.addObject(new Player(WIDTH/2 - 64, HEIGHT/2 - 64, ID.Player2));
-		handler.addObject(new BasicEnemy(rand.nextInt(WIDTH - 50), rand.nextInt(HEIGHT - 50), ID.Enemy, handler));
+		
 		spawn = new Spawn(handler, hud);
+		
+		rand = new Random();
+		
+		
+		if(gameState == STATE.Game){
+//			handler.addObject(new Player(WIDTH/2 - 16, HEIGHT/2 - 16, ID.Player, handler));
+//	//		handler.addObject(new Player(WIDTH/2 - 64, HEIGHT/2 - 64, ID.Player2));
+//			handler.addObject(new BasicEnemy(rand.nextInt(WIDTH - 50), rand.nextInt(HEIGHT - 50), ID.Enemy, handler));
+		}
+		
 	}
 	
 	// the Game() creates a Window object, which starts up the start(), which calls run()
@@ -82,6 +98,16 @@ public class Game  extends Canvas implements Runnable{
 		}
 		stop();
 	}
+	private void tick() {
+		handler.tick();
+		if(gameState == STATE.Game){
+			hud.tick();
+			spawn.tick();
+		} else if (gameState == STATE.Menu){
+			menu.tick();
+		}
+	}
+	
 	private void render() {
 		// Draw window properties and render objects
 		BufferStrategy bs = this.getBufferStrategy();
@@ -90,9 +116,14 @@ public class Game  extends Canvas implements Runnable{
 		g.setColor(Color.black);
 		g.fillRect(0, 0, WIDTH, HEIGHT);
 		// we get the handler running thru all the objects of the game, updating them and rendering them
-		handler.render(g);
-		hud.render(g);
 		
+		handler.render(g);
+		if(gameState == STATE.Game){
+			hud.render(g);	
+		} else if (gameState == STATE.Menu){
+			menu.render(g);
+		}
+				
 		g.dispose();
 		bs.show(); 
 	}
@@ -103,10 +134,6 @@ public class Game  extends Canvas implements Runnable{
 		return val;
 	}
 	
-	private void tick() {
-		handler.tick();
-		hud.tick();
-		spawn.tick();
-	}
+
 
 }
