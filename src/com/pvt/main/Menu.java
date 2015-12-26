@@ -23,12 +23,15 @@ public class Menu extends MouseAdapter{
 		// get mouse position
 		int mx = e.getX();
 		int my = e.getY();
-		
+		// Play button
 		if (mouseOver(mx, my, 260, 100, 150, 64)){
 			game.gameState = STATE.Game;
 			handler.addObject(new Player(Game.WIDTH/2 - 16, Game.HEIGHT/2 - 16, ID.Player, handler));
 			//		handler.addObject(new Player(WIDTH/2 - 64, HEIGHT/2 - 64, ID.Player2));
 					handler.addObject(new BasicEnemy(rand.nextInt(Game.WIDTH - 50), rand.nextInt(Game.HEIGHT - 50), ID.Enemy, handler));
+		}
+		if (mouseOver(mx, my, 260, 300, 150, 64)){
+			System.exit(0);
 		}
 	}
 	@Override
