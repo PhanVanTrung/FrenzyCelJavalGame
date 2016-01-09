@@ -6,6 +6,7 @@ public enum ID {
 	Player2(),
 	Trail(),
 	FatalEnemy(),
+	HardEnemy(),
 	BossEnemy(),
 	Enemy();
 }

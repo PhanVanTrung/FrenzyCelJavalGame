@@ -12,7 +12,7 @@ public class Player extends GameObject {
 	
 	Handler handler;
 	
-	//------------------
+	//------------------Insert image for the player
 	private BufferedImage player;
 	private void loadPlayer(){
 		BufferedImage img = null;
@@ -22,6 +22,13 @@ public class Player extends GameObject {
 			e.printStackTrace();
 		}
 		player = img;
+	}
+	
+	public Player(ID id, Handler handler) {
+		super(id);
+		// initially dont set the velocity for player. But it will be when key movement is hit
+		this.handler = handler;
+		loadPlayer();
 	}
 
 	public Player(int x, int y, ID id, Handler handler) {
@@ -48,6 +55,9 @@ public class Player extends GameObject {
 			// Collision code
 			if (tempObj.getId()==ID.Enemy && getBounds().intersects(tempObj.getBounds())){
 				HUD.HEALTH -= 1;
+			}
+			if (tempObj.getId()==ID.HardEnemy && getBounds().intersects(tempObj.getBounds())){
+				HUD.HEALTH -= 3;
 			}
 			if (tempObj.getId() == ID.FatalEnemy && getBounds().intersects(tempObj.getBounds()))
 				HUD.HEALTH = 0;

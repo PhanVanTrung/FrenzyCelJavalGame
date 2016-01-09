@@ -11,6 +11,15 @@ public class BossBullet extends GameObject{
 	private Random rand = new Random();
 	Player player;
 
+	public BossBullet(ID id, Handler handler) {
+		super(id);
+		this.handler = handler;
+		// velocity to X, velocity to Y
+		// random from -5 to 5;
+		velX = (rand.nextInt(10) + -5);
+		velY = 5;
+	}
+	
 	public BossBullet(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
@@ -33,12 +42,12 @@ public class BossBullet extends GameObject{
 		if (x<=0 || x >= Game.WIDTH - 14) handler.removeObject(this);
 //		if(y >= Game.HEIGHT) handler.removeObject(this);
 		// add the tails to handler with the position of the enemy (copy enemy position to trail)
-		handler.addObject(new Trail(x, y, ID.Trail, Color.red, 14, 14, 0.05f, handler));
+		handler.addObject(new Trail(x, y, ID.Trail, Color.green, 14, 14, 0.05f, handler));
 	}
 
 	@Override
 	public void render(Graphics g) {
-		g.setColor(Color.red);
+		g.setColor(Color.green);
 		g.fillRect(x, y, 14, 14);
 
 		// Boundary

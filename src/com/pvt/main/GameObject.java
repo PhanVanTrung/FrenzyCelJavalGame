@@ -11,13 +11,25 @@ public abstract class GameObject {
 	protected ID id;
 	// variable to control speed of object (Velocity)
 	protected int velX, velY;
+//	private Handler handler;
+//	public Handler getHandler() {
+//		return handler;
+//	}
+//
+//	public void setHandler(Handler handler) {
+//		this.handler = handler;
+//	}
+
+	public GameObject(ID id) {
+		this.id = id;
+	}
 	
 	public GameObject(int x, int y, ID id) {
 		this.x = x;
 		this.y = y;
 		this.id = id;
 	}
-	
+
 	public int getX() {
 		return x;
 	}
@@ -59,7 +71,7 @@ public abstract class GameObject {
 	}
 
 	public abstract void tick();
-	
+
 	public abstract void render(Graphics g);
 	// Used this to detect collision
 	public abstract Rectangle getBounds();

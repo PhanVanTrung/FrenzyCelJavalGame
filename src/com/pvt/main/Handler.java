@@ -1,13 +1,13 @@
 package com.pvt.main;
 
 import java.awt.Graphics;
-import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Handler {
 	// Hold/store, maintain, update and render all objects in the game
 	
 	// Use LinkedList bcoz we dont know exact number of game objects we gonna have
-	protected ArrayList<GameObject> objects = new ArrayList<GameObject>();
+	protected LinkedList<GameObject> objects = new LinkedList<GameObject>();
 	
 	// tick() and render() mission: iterate thru objects, update and render them
 	// tick: update/increment/decrement/whatever it is the object position
@@ -28,7 +28,6 @@ public class Handler {
 			tempObject.render(g);
 		}
 	}
-	
 	public void addObject(GameObject obj){
 		this.objects.add(obj);
 	}
@@ -41,6 +40,9 @@ public class Handler {
 			GameObject tempObj = objects.get(i);
 			if (tempObj.getId()==ID.Player){
 				objects.clear();
+				if (Game.gameState == Game.STATE.Menu) {
+					continue;
+				}
 				addObject(new Player(Game.WIDTH/2 - 16, Game.HEIGHT - 16, ID.Player, this));
 			}
 		}

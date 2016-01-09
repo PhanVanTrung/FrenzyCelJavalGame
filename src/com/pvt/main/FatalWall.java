@@ -6,6 +6,13 @@ import java.awt.Rectangle;
 
 public class FatalWall extends GameObject{
 
+	public FatalWall(ID id, Handler handler) {
+		super(id);
+		// velocity to X, velocity to Y
+		velX = 0;
+		velY = 0;
+	}
+	
 	public FatalWall(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
 		// velocity to X, velocity to Y
