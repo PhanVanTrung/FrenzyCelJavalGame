@@ -12,6 +12,14 @@ public class BossEnemy extends GameObject{
 	private Random rand = new Random();
 	Player player;
 
+	public BossEnemy(ID id, Handler handler) {
+		super(id);
+		// velocity to X, velocity to Y
+		velX = 0;
+		velY = 2;
+		this.handler = handler;
+	}
+	
 	public BossEnemy(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
 		// velocity to X, velocity to Y

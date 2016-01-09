@@ -15,6 +15,15 @@ public class Trail extends GameObject{
 	private float life;
 	// life = 0.001 - 0.1
 
+	public Trail(ID id, Color color, Handler handler) {
+		super(id);
+		this.handler = handler;
+		this.width = 14;
+		this.height = 14;
+		this.life = 0.05f;
+		this.color = color;
+	}
+	
 	public Trail(int x, int y, ID id, Color color, int width, int height, float life, Handler handler) {
 		super(x, y, id);
 		this.handler = handler;
@@ -23,6 +32,10 @@ public class Trail extends GameObject{
 		this.life = life;
 		this.color = color;
 	}
+	
+//	public void setColor(Color color) {
+//		this.color = color;
+//	}
 
 	@Override
 	public void tick() {
@@ -38,7 +51,7 @@ public class Trail extends GameObject{
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setComposite(makeTransparent(alpha));
 		g.setColor(color);
-		g.fillRect(x, y, width, height);
+		g.fillRect(getX(), getY(), width, height);
 		// current obj display (solid enemy)
 //		g2d.setComposite(makeTransparent(1));
 	}
@@ -52,5 +65,4 @@ public class Trail extends GameObject{
 		int type = AlphaComposite.SRC_OVER;
 		return(AlphaComposite.getInstance(type, alpha));
 	}
-
 }

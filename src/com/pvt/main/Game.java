@@ -4,7 +4,7 @@ import java.awt.Canvas;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
-import java.util.Random;
+
 
 public class Game  extends Canvas implements Runnable{
 
@@ -13,40 +13,38 @@ public class Game  extends Canvas implements Runnable{
 	public static final int WIDTH = 1366/ 2, HEIGHT = WIDTH/ 12 * 9;
 	private Thread thread;
 	private boolean running = false;
-	private Handler handler;
-	private Random rand;
+	public Handler handler;
+//	private Random rand;
 	private HUD hud;
-	private Spawn spawn;
+	private Spawn respawn;
 	private Menu menu;
+	public static boolean paused = false;
+	public int diff = 0; //0 - normal, 1 - hard
+	
 	public enum STATE{
 		Menu(),
-		Game()
+		Game(),
+		Help(),
+		End(),
+		Select()
 	};
 
-	public STATE gameState = STATE.Menu;
+	public static STATE gameState = STATE.Menu;
 	
 	public Game() {
 		// initialise objects
 		
 		this.handler = new Handler();
-		menu = new Menu(this, handler);
-		this.addKeyListener(new KeyInput(handler));
+		hud = new HUD();
+		menu = new Menu(this, handler, hud);
+		this.addKeyListener(new KeyInput(handler, this));
 		this.addMouseListener(menu);
 		
 		new Window(WIDTH, HEIGHT, "FinzyFrenzy", this);
-		hud = new HUD();
-		
-		spawn = new Spawn(handler, hud);
-		
-		rand = new Random();
 		
 		
-		if(gameState == STATE.Game){
-//			handler.addObject(new Player(WIDTH/2 - 16, HEIGHT/2 - 16, ID.Player, handler));
-//	//		handler.addObject(new Player(WIDTH/2 - 64, HEIGHT/2 - 64, ID.Player2));
-//			handler.addObject(new BasicEnemy(rand.nextInt(WIDTH - 50), rand.nextInt(HEIGHT - 50), ID.Enemy, handler));
-		}
-		
+		respawn = new Spawn(handler, hud, this);
+	
 	}
 	
 	// the Game() creates a Window object, which starts up the start(), which calls run()
@@ -61,6 +59,9 @@ public class Game  extends Canvas implements Runnable{
 			thread.join();
 			running = false;
 		}catch(Exception e){ e.printStackTrace(); }
+		for (int i = 0; i < handler.objects.size(); i++) {
+			// do sth
+		}
 	}
 
 	public static void main(String[] args) {
@@ -78,6 +79,7 @@ public class Game  extends Canvas implements Runnable{
 		double amountOfTicks = 60.0;
 		double ns = 1000000000 / amountOfTicks;
 		double delta = 0;
+
 		double timer = System.currentTimeMillis();
 //		int frames = 0;
 		while(running) {
@@ -99,15 +101,24 @@ public class Game  extends Canvas implements Runnable{
 		stop();
 	}
 	private void tick() {
-		handler.tick();
 		if(gameState == STATE.Game){
-			hud.tick();
-			spawn.tick();
-		} else if (gameState == STATE.Menu){
+			if (!paused) {
+				hud.tick();
+				respawn.tick();
+				handler.tick();
+				
+				if(HUD.HEALTH <= 0) {
+					HUD.HEALTH = 100;
+					handler.clearEnemies();
+					gameState = STATE.End;
+				}
+			}
+		} else if ((gameState == STATE.Menu) || (gameState == STATE.End) || gameState == STATE.Select){
 			menu.tick();
+			handler.tick();
 		}
 	}
-	
+
 	private void render() {
 		// Draw window properties and render objects
 		BufferStrategy bs = this.getBufferStrategy();
@@ -118,9 +129,14 @@ public class Game  extends Canvas implements Runnable{
 		// we get the handler running thru all the objects of the game, updating them and rendering them
 		
 		handler.render(g);
+		
+		if(paused) {
+			g.setColor(Color.WHITE);
+			g.drawString("PAUSING", 320, 250);
+	}
 		if(gameState == STATE.Game){
 			hud.render(g);	
-		} else if (gameState == STATE.Menu){
+		} else if (gameState == STATE.Menu || gameState == STATE.Help || gameState == STATE.End || gameState == STATE.Select){
 			menu.render(g);
 		}
 				
@@ -137,3 +153,6 @@ public class Game  extends Canvas implements Runnable{
 
 
 }
+
+
+// =================================================###########====================================
